@@ -2,8 +2,10 @@ import can
 import time
 import random
 
+from src.can_bus.can_bus_interface import CanBusInterface
+
 #Setup virtual CAN Interface
-bus = can.interface.Bus(channel='vcan0', interface='socketcan')
+bus = CanBusInterface(channel='vcan0', bus_type='socketcan')
 
 # Initial values
 rpm = 800
@@ -11,14 +13,6 @@ speed = 0
 coolant_temp = 40 # Celsius
 fuel_level = 100
 throttle = 0
-
-def send_can_message(can_id, data):
-    msg = can.Message(arbitration_id=can_id, data=data, is_extended_id=False)
-
-    try:
-        bus.send(msg)
-    except can.canError:
-        print("Message NOT sent")
 
 print("CAN simulation server started...")
 
@@ -55,11 +49,11 @@ while True:
     fuel_byte = int(fuel_level).to_bytes(1, 'big')  # ID 0X0C3
     throttle_byte = int(throttle).to_bytes(1, 'big')  # ID 0X0C4
 
-    send_can_message(0x0C0, rpm_bytes)
-    send_can_message(0x0C1, speed_bytes)
-    send_can_message(0x0C2, coolant_byte)
-    send_can_message(0x0C3, fuel_byte)
-    send_can_message(0x0C4, throttle_byte)
+    bus.tx_can_msg(0x0C0, rpm_bytes)
+    bus.tx_can_msg(0x0C1, speed_bytes)
+    bus.tx_can_msg(0x0C2, coolant_byte)
+    bus.tx_can_msg(0x0C3, fuel_byte)
+    bus.tx_can_msg(0x0C4, throttle_byte)
 
     time.sleep(0.1)
 
