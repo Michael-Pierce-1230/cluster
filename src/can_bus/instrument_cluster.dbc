@@ -1,0 +1,21 @@
+VERSION "1.0"
+
+
+BU_: EngineECU DashApp
+
+BO_ 300 EngineStatus: 2 EngineECU
+	SG_ EngineRPM : 0|16@1+ (0.25,0) [0|16000] "rpm" DashApp
+	
+BO_ 301 SpeedInfo: 2 EngineECU
+	SG_ VehicleSpeed : 0|16@1+ (1,0) [0|300] "km/h" DashApp
+	
+BO_ 302 CoolantInfo: 1 EngineECU
+	SG_ CoolantTemp : 0|8@1+ (1,-40) [-40|215] "C" DashApp
+	
+BO_ 303 FuelInfo: 1 EngineECU
+	SG_ FuelLevel : 0|8@1+ (0.5,0) [0|100] "%" DashApp
+	
+BO_ 304 EngineLights: 1 EngineECU
+	SG_ MIL : 0|1@1+ (1,0) [0|1] "" DashApp
+VAL_ 304 MIL 0 "Off" 1 "On";
+
