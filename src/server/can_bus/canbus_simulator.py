@@ -66,11 +66,11 @@ def main():
             fuel_byte = int(fuel_level).to_bytes(1, 'big')  # ID 0X0C3
             throttle_byte = int(throttle).to_bytes(1, 'big')  # ID 0X0C4
 
-            bus.send(can.Message(arbitration_id=0x0C0, data=rpm_bytes, is_extended_id=False))
-            bus.send(can.Message(arbitration_id=0x0C1, data=speed_bytes, is_extended_id=False))
-            bus.send(can.Message(arbitration_id=0x0C2, data=coolant_byte, is_extended_id=False))
-            bus.send(can.Message(arbitration_id=0x0C3, data=fuel_byte, is_extended_id=False))
-            bus.send(can.Message(arbitration_id=0x0C4, data=throttle_byte, is_extended_id=False))
+            bus.send(can.Message(arbitration_id=0x0C, data=rpm_bytes, is_extended_id=False))
+            bus.send(can.Message(arbitration_id=0x0D, data=speed_bytes, is_extended_id=False))
+            bus.send(can.Message(arbitration_id=0x05, data=coolant_byte, is_extended_id=False))
+            bus.send(can.Message(arbitration_id=0x03, data=fuel_byte, is_extended_id=False))
+            bus.send(can.Message(arbitration_id=0x11, data=throttle_byte, is_extended_id=False))
             # bus.tx_can_msg(0x0C1, speed_bytes)
             # bus.tx_can_msg(0x0C2, coolant_byte)
             # bus.tx_can_msg(0x0C3, fuel_byte)
